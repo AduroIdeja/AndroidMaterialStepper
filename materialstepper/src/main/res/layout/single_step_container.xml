@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical"
+    android:paddingEnd="8dp"
+    android:paddingStart="24dp"
+    android:paddingTop="8dp"
+    android:theme="@style/AppTheme">
+
+    <TextView
+        android:id="@+id/step_number"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:background="@drawable/step_background_inactive"
+        android:gravity="center"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/step_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/step_number"
+        android:layout_alignTop="@+id/step_number"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"
+        android:layout_toEndOf="@+id/step_number"
+        android:gravity="center_vertical"
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+        android:textColor="@android:color/black" />
+
+    <LinearLayout
+        android:id="@+id/step_content_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/step_title"
+        android:layout_toEndOf="@+id/step_number"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="16dp"
+
+            android:orientation="vertical"
+            app:cardCornerRadius="4dp">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:background="@android:color/white" />
+
+        </android.support.v7.widget.CardView>
+
+        <LinearLayout
+            android:id="@+id/step_button_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/step_next_btn"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="36dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp" />
+
+            <Button
+                android:id="@+id/step_skip_btn"
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="36dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/step_content_layout"
+        android:layout_alignEnd="@+id/step_number"
+        android:layout_alignParentStart="false"
+        android:layout_alignStart="@+id/step_number"
+        android:layout_below="@+id/step_number"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:minHeight="24dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:background="@android:color/black" />
+    </LinearLayout>
+
+</RelativeLayout>
