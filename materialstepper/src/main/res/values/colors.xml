@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Connecting line color -->
+    <color name="step_connecting_line">@android:color/black</color>
+
+
+</resources>

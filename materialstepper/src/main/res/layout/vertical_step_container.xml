@@ -16,8 +16,7 @@
         android:layout_height="24dp"
         android:background="@drawable/step_background_inactive"
         android:gravity="center"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="@android:color/white" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <TextView
         android:id="@+id/step_title"
@@ -29,8 +28,7 @@
         android:layout_marginStart="12dp"
         android:layout_toEndOf="@+id/step_number"
         android:gravity="center_vertical"
-        android:textAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-        android:textColor="@android:color/black" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
     <LinearLayout
         android:id="@+id/step_content_layout"
@@ -53,7 +51,8 @@
 
             <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="400dp"
+                android:layout_height="wrap_content"
+                android:minHeight="100dp"
                 android:background="@android:color/white" />
 
         </android.support.v7.widget.CardView>
@@ -75,7 +74,7 @@
 
             <Button
                 android:id="@+id/step_skip_btn"
-                style="@style/Widget.AppCompat.Button.Colored"
+                style="@style/Widget.AppCompat.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="36dp"
@@ -101,8 +100,8 @@
         <LinearLayout
             android:layout_width="1dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:background="@android:color/black" />
+            android:background="@color/step_connecting_line"
+            android:orientation="horizontal" />
     </LinearLayout>
 
 </RelativeLayout>

@@ -25,7 +25,7 @@ public class VerticalStep extends RelativeLayout{
 
     private void initialize(Context context){
 
-        inflate(context, R.layout.single_step_container, this);
+        inflate(context, R.layout.vertical_step_container, this);
 
     }
 
