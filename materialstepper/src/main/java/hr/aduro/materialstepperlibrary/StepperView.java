@@ -5,7 +5,9 @@ import android.util.AttributeSet;
 import android.widget.ScrollView;
 
 /**
- * Created by Tomislav Horvat on 7/15/16.
+ * A View representing the scroll view container of all inserted steps
+ *
+ * @author Tomislav Horvat
  */
 public class StepperView extends ScrollView {
 

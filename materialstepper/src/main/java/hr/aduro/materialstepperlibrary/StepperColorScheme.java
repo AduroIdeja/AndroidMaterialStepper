@@ -3,7 +3,9 @@ package hr.aduro.materialstepperlibrary;
 import android.graphics.Color;
 
 /**
- * Created by Tomislav Horvat on 7/15/16.
+ * Utility class for setting colors of various widgets in VerticalStep
+ *
+ * @author Tomislav Horvat
  */
 public class StepperColorScheme {
 

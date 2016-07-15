@@ -50,6 +50,7 @@
             app:cardCornerRadius="4dp">
 
             <FrameLayout
+                android:id="@+id/step_content_frame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:minHeight="100dp"
