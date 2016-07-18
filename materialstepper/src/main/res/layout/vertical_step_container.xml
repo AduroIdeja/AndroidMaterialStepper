@@ -16,7 +16,8 @@
         android:layout_height="24dp"
         android:background="@drawable/step_background_inactive"
         android:gravity="center"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        android:textColor="@android:color/white"
+        android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
     <TextView
         android:id="@+id/step_title"
@@ -37,7 +38,7 @@
         android:layout_below="@+id/step_title"
         android:layout_toEndOf="@+id/step_number"
         android:orientation="vertical"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
@@ -86,6 +87,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/step_connector_line"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/step_content_layout"
