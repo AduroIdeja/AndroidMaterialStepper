@@ -2,6 +2,7 @@ package hr.aduro.materialstepperlibrary;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -17,6 +18,7 @@ public class StepperView extends ScrollView {
     private static LinearLayout container;
     private static int currentStep = 0;
     private static StepperAdapter adapter;
+    private static StepperView stepperView;
 
     ////////////////////
     //  CONSTRUCTORS  //
@@ -41,6 +43,7 @@ public class StepperView extends ScrollView {
         this.context = context;
         inflate(context, R.layout.stepper, this);
 
+        stepperView = this;
         container = (LinearLayout) this.findViewById(R.id.stepper_container);
 
     }
@@ -67,7 +70,7 @@ public class StepperView extends ScrollView {
 
         for (int i = 0; i < count; i++) {
 
-            VerticalStep step = new VerticalStep(context);
+            VerticalStepView step = new VerticalStepView(context);
 
             if (i == 0)
                 step.activateStep();
@@ -75,7 +78,7 @@ public class StepperView extends ScrollView {
             if (i == (count - 1))
                 step.hideConnector();
 
-            step.setStepNumber(i + 1);
+            step.setStepNumber(i+1);
 
             step.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
             container.addView(step);
@@ -88,29 +91,84 @@ public class StepperView extends ScrollView {
     //  HELPERS  //
     ///////////////
 
-    public static void nextStep() {
+    /**
+     * Performs a full action required for displaying the next step
+     */
+    protected static void nextStep() {
 
-        if (currentStep < adapter.getCount() - 1)
+        if (currentStep < adapter.getCount() - 1) {
+
             currentStep++;
-        ((VerticalStep) container.getChildAt(currentStep)).activateStep();
+            VerticalStepView step = (VerticalStepView) container.getChildAt(currentStep);
 
-    }
+            step.activateStep();
 
-    public static void previousStep() {
-
-        if (currentStep > 0) {
-
-            currentStep--;
-            ((VerticalStep) container.getChildAt(currentStep)).activateStep();
+            scrollToActiveElement(step);
 
         }
 
     }
 
+    /**
+     * Performs a full action required for displaying the previous step
+     */
+    public static void previousStep() {
+
+        if (currentStep > 0) {
+
+            VerticalStepView step = (VerticalStepView) container.getChildAt(currentStep);
+            step.revertStep();
+
+            currentStep--;
+
+            step = (VerticalStepView) container.getChildAt(currentStep);
+            step.activateStep();
+
+            scrollToActiveElement(step);
+
+        }
+
+    }
+
+    /**
+     * Performs a full action required for displaying the desired step
+     * @param stepIndex
+     */
     public static void jumpToStep(int stepIndex) {
 
         currentStep = stepIndex;
-        ((VerticalStep) container.getChildAt(currentStep)).activateStep();
+        VerticalStepView step = (VerticalStepView) container.getChildAt(currentStep);
+
+        step.activateStep();
+
+        scrollToActiveElement(step);
+
+    }
+
+    /**
+     * Scrolls to top of step if the target steps' title is not visible on screen
+     * @param step - VerticalStep, target step to display
+     */
+    private static void scrollToActiveElement(final VerticalStepView step){
+
+        Rect scrollBounds = new Rect();
+
+        stepperView.getHitRect(scrollBounds);
+
+        if(!step.getTitleLabel().getLocalVisibleRect(scrollBounds)){
+
+            stepperView.post(new Runnable() {
+
+                @Override
+                public void run() {
+
+                    stepperView.smoothScrollTo(0, step.getTop());
+
+                }
+
+            });
+
+        }
 
     }
 

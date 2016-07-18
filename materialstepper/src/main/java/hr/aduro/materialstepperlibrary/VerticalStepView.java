@@ -18,7 +18,7 @@ import java.util.Locale;
  *
  * @author Tomislav Horvat
  */
-class VerticalStep extends RelativeLayout {
+class VerticalStepView extends RelativeLayout {
 
     private Context context;
     private OnClickListener nextListener = new OnClickListener() {
@@ -55,14 +55,14 @@ class VerticalStep extends RelativeLayout {
     //  CONSTRUCTORS  //
     ////////////////////
 
-    public VerticalStep(Context context) {
+    public VerticalStepView(Context context) {
 
         super(context);
         initialize(context);
 
     }
 
-    public VerticalStep(Context context, AttributeSet attributeSet) {
+    public VerticalStepView(Context context, AttributeSet attributeSet) {
 
         super(context, attributeSet);
         initialize(context);
@@ -92,9 +92,19 @@ class VerticalStep extends RelativeLayout {
     //  GETTERS  //
     ///////////////
 
+    /**
+     * Gets this steps' index, as set on @setStepNumber()
+     * @return - integer, step index
+     */
     protected int getStepIndex() {
 
         return stepIndex;
+
+    }
+
+    public TextView getTitleLabel(){
+
+        return titleLabel;
 
     }
 
@@ -133,6 +143,8 @@ class VerticalStep extends RelativeLayout {
 
         };
 
+        nextBtn.setOnClickListener(this.nextListener);
+
     }
 
     /**
@@ -142,7 +154,7 @@ class VerticalStep extends RelativeLayout {
      */
     public void setOnSkipListener(final StepperButtonListener skipListener) {
 
-        nextListener = new OnClickListener() {
+        this.skipListener = new OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -154,8 +166,14 @@ class VerticalStep extends RelativeLayout {
 
         };
 
+        skipBtn.setOnClickListener(this.skipListener);
+
     }
 
+    /**
+     * Sets the step number, a 1 based integer
+     * @param step - integer
+     */
     protected void setStepNumber(int step) {
 
         stepNumber.setText(String.format(Locale.getDefault(), "%d", step));
@@ -167,12 +185,18 @@ class VerticalStep extends RelativeLayout {
     //  HELPERS  //
     ///////////////
 
+    /**
+     * Hides the connector line, used for hiding connector line of last element in stepper
+     */
     public void hideConnector() {
 
         connectorLine.setVisibility(GONE);
 
     }
 
+    /**
+     * Sets step in an active visual state
+     */
     public void activateStep() {
 
         contentLayout.setVisibility(VISIBLE);
@@ -184,6 +208,9 @@ class VerticalStep extends RelativeLayout {
 
     }
 
+    /**
+     * Sets step in an inactive visual state
+     */
     public void revertStep() {
 
         contentLayout.setVisibility(GONE);
@@ -192,6 +219,9 @@ class VerticalStep extends RelativeLayout {
 
     }
 
+    /**
+     * Sets step in an completed visual state
+     */
     public void completeStep() {
 
         contentLayout.setVisibility(GONE);
@@ -201,6 +231,9 @@ class VerticalStep extends RelativeLayout {
 
     }
 
+    /**
+     * Sets step in an inactive visual state
+     */
     public void skipStep() {
 
         revertStep();
