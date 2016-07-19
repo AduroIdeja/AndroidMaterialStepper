@@ -1,11 +1,12 @@
 package hr.aduro.materialstepper;
 
-import android.app.Fragment;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
 import hr.aduro.materialstepperlibrary.StepperAdapter;
+import hr.aduro.materialstepperlibrary.StepperColorScheme;
 import hr.aduro.materialstepperlibrary.StepperView;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,13 +21,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         stepperView = (StepperView) findViewById(R.id.stepper_view);
-        adapter = new StepperAdapter(this, getFragmentManager());
+        adapter = new StepperAdapter(getFragmentManager());
 
-        for (int i = 0; i < 5; i++) {
+        adapter.add("First step", new BlankFragment1());
+        adapter.add("Second title", new BlankFragment2());
+        adapter.add("Just playing", new BlankFragment3());
 
-            adapter.add(new Fragment());
+        StepperColorScheme colorScheme = new StepperColorScheme();
+        colorScheme.setStepLineColor(Color.RED);
+        colorScheme.setStepTitleColor(Color.BLUE);
+        colorScheme.setStepNumberTextColor(Color.YELLOW);
+        colorScheme.setSkipBtnBackgroundColor(Color.GREEN);
+        colorScheme.setNextBtnBackgroundColor(Color.BLACK);
+        colorScheme.setSkipBtnTextColor(Color.MAGENTA);
+        colorScheme.setNextBtnTextColor(Color.WHITE);
 
-        }
+        adapter.setStepperColorScheme(colorScheme);
 
         stepperView.setAdapter(adapter);
 
@@ -37,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
 
         if (keyCode == KeyEvent.KEYCODE_BACK && stepperView.getCurrentStep() > 0) {
 
-            StepperView.previousStep();
+            stepperView.previousStep();
             return true;
 
-        }else
+        } else
             return super.onKeyDown(keyCode, event);
 
     }

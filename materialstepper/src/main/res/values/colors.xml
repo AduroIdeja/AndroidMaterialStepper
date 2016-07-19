@@ -4,5 +4,4 @@
     <!-- Connecting line color -->
     <color name="step_connecting_line">@android:color/black</color>
 
-
 </resources>

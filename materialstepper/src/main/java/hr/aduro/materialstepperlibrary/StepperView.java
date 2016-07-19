@@ -67,6 +67,7 @@ public class StepperView extends ScrollView {
         adapter = stepperAdapter;
         int count = adapter.getCount();
         FragmentManager fragmentManager = adapter.getFragmentManager();
+        StepperColorScheme stepperColorScheme = adapter.getStepperColorScheme();
 
         for (int i = 0; i < count; i++) {
 
@@ -78,7 +79,45 @@ public class StepperView extends ScrollView {
             if (i == (count - 1))
                 step.hideConnector();
 
-            step.setStepNumber(i+1);
+            step.setStepNumber(i + 1);
+            step.setTitleLabel(adapter.getTitleAt(i));
+            step.setContentView(fragmentManager, adapter.getContentAt(i));
+
+            if(stepperColorScheme!= null)
+                step.setCustomColors(stepperColorScheme);
+
+            step.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+            container.addView(step);
+
+        }
+
+    }
+
+    public void setAdapter(StepperAdapter stepperAdapter, StepperButtonListener nextListener, StepperButtonListener skipListener) {
+
+        adapter = stepperAdapter;
+        int count = adapter.getCount();
+        FragmentManager fragmentManager = adapter.getFragmentManager();
+        StepperColorScheme stepperColorScheme = adapter.getStepperColorScheme();
+
+        for (int i = 0; i < count; i++) {
+
+            VerticalStepView step = new VerticalStepView(context);
+
+            if (i == 0)
+                step.activateStep();
+
+            if (i == (count - 1))
+                step.hideConnector();
+
+            step.setStepNumber(i + 1);
+            step.setTitleLabel(adapter.getTitleAt(i));
+            step.setContentView(fragmentManager, adapter.getContentAt(i));
+            step.setOnNextListener(nextListener);
+            step.setOnSkipListener(skipListener);
+
+            if(stepperColorScheme!= null)
+                step.setCustomColors(stepperColorScheme);
 
             step.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
             container.addView(step);
@@ -112,7 +151,7 @@ public class StepperView extends ScrollView {
     /**
      * Performs a full action required for displaying the previous step
      */
-    public static void previousStep() {
+    public void previousStep() {
 
         if (currentStep > 0) {
 
@@ -132,9 +171,10 @@ public class StepperView extends ScrollView {
 
     /**
      * Performs a full action required for displaying the desired step
-     * @param stepIndex
+     *
+     * @param stepIndex - integer, desired step to jump to
      */
-    public static void jumpToStep(int stepIndex) {
+    public void jumpToStep(int stepIndex) {
 
         currentStep = stepIndex;
         VerticalStepView step = (VerticalStepView) container.getChildAt(currentStep);
@@ -147,15 +187,16 @@ public class StepperView extends ScrollView {
 
     /**
      * Scrolls to top of step if the target steps' title is not visible on screen
+     *
      * @param step - VerticalStep, target step to display
      */
-    private static void scrollToActiveElement(final VerticalStepView step){
+    private static void scrollToActiveElement(final VerticalStepView step) {
 
         Rect scrollBounds = new Rect();
 
         stepperView.getHitRect(scrollBounds);
 
-        if(!step.getTitleLabel().getLocalVisibleRect(scrollBounds)){
+        if (!step.getTitleLabel().getLocalVisibleRect(scrollBounds)) {
 
             stepperView.post(new Runnable() {
 

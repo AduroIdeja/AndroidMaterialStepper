@@ -1,10 +1,15 @@
 package hr.aduro.materialstepperlibrary;
 
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.CardView;
 import android.util.AttributeSet;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -45,9 +50,9 @@ class VerticalStepView extends RelativeLayout {
             };
 
     private TextView titleLabel, stepNumber;
-    private FrameLayout cardFrameLayout;
     private Button nextBtn, skipBtn;
     private LinearLayout contentLayout, connectorLine;
+    private CardView cardView;
 
     private int stepIndex;
 
@@ -75,12 +80,12 @@ class VerticalStepView extends RelativeLayout {
         this.context = context;
 
         titleLabel = (TextView) this.findViewById(R.id.step_title);
-        cardFrameLayout = (FrameLayout) this.findViewById(R.id.step_content_frame);
         stepNumber = (TextView) this.findViewById(R.id.step_number);
         nextBtn = (Button) this.findViewById(R.id.step_next_btn);
         skipBtn = (Button) this.findViewById(R.id.step_skip_btn);
         contentLayout = (LinearLayout) this.findViewById(R.id.step_content_layout);
         connectorLine = (LinearLayout) this.findViewById(R.id.step_connector_line);
+        cardView = (CardView) findViewById(R.id.step_card_view);
 
         // set default listeners
         nextBtn.setOnClickListener(nextListener);
@@ -92,17 +97,7 @@ class VerticalStepView extends RelativeLayout {
     //  GETTERS  //
     ///////////////
 
-    /**
-     * Gets this steps' index, as set on @setStepNumber()
-     * @return - integer, step index
-     */
-    protected int getStepIndex() {
-
-        return stepIndex;
-
-    }
-
-    public TextView getTitleLabel(){
+    public TextView getTitleLabel() {
 
         return titleLabel;
 
@@ -119,6 +114,27 @@ class VerticalStepView extends RelativeLayout {
      */
     public void setCustomColors(StepperColorScheme stepperColorScheme) {
 
+        if (stepperColorScheme.getStepNumberColor() != -1)
+            stepNumber.setTextColor(stepperColorScheme.getStepNumberColor());
+
+        if(stepperColorScheme.getNextBtnBackgroundColor() != -1)
+            nextBtn.getBackground().setColorFilter(stepperColorScheme.getNextBtnBackgroundColor(), PorterDuff.Mode.MULTIPLY);
+
+        if(stepperColorScheme.getSkipBtnBackgroundColor() != -1)
+            skipBtn.getBackground().setColorFilter(stepperColorScheme.getSkipBtnBackgroundColor(), PorterDuff.Mode.MULTIPLY);
+
+        if(stepperColorScheme.getNextBtnTextColor() != -1)
+            nextBtn.setTextColor(stepperColorScheme.getNextBtnBackgroundColor());
+
+        if(stepperColorScheme.getSkipBtnTextColor() != -1)
+            skipBtn.setTextColor(stepperColorScheme.getNextBtnTextColor());
+
+        if(stepperColorScheme.getStepLineColor() != -1)
+            connectorLine.setBackgroundColor(stepperColorScheme.getStepLineColor());
+
+        if(stepperColorScheme.getStepTitleColor() != -1)
+            titleLabel.setTextColor(stepperColorScheme.getStepTitleColor());
+
     }
 
     /**
@@ -128,20 +144,21 @@ class VerticalStepView extends RelativeLayout {
      */
     public void setOnNextListener(final StepperButtonListener nextListener) {
 
-        this.nextListener = new OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if (nextListener != null)
+            this.nextListener = new OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                if (nextListener.onNext()) {
+                    if (nextListener.onNext()) {
 
-                    completeStep();
-                    StepperView.nextStep();
+                        completeStep();
+                        StepperView.nextStep();
+
+                    }
 
                 }
 
-            }
-
-        };
+            };
 
         nextBtn.setOnClickListener(this.nextListener);
 
@@ -154,30 +171,62 @@ class VerticalStepView extends RelativeLayout {
      */
     public void setOnSkipListener(final StepperButtonListener skipListener) {
 
-        this.skipListener = new OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        if (skipListener != null)
+            this.skipListener = new OnClickListener() {
+                @Override
+                public void onClick(View view) {
 
-                skipListener.onSkip();
-                skipStep();
-                StepperView.nextStep();
+                    skipListener.onSkip();
+                    skipStep();
+                    StepperView.nextStep();
 
-            }
+                }
 
-        };
+            };
 
         skipBtn.setOnClickListener(this.skipListener);
 
     }
 
+    protected void setTitleLabel(String title){
+
+        titleLabel.setText(title);
+
+    }
+
     /**
      * Sets the step number, a 1 based integer
+     *
      * @param step - integer
      */
     protected void setStepNumber(int step) {
 
         stepNumber.setText(String.format(Locale.getDefault(), "%d", step));
         stepIndex = step - 1;
+
+    }
+
+    protected void setContentView(FragmentManager fragmentManager, Fragment fragment) {
+
+        if (fragmentManager == null) {
+
+            throw new NullPointerException("FragmentManager must not be null!");
+
+        } else if (fragment == null) {
+
+            throw new NullPointerException("Fragment must not be null!");
+
+        } else {
+
+            FrameLayout frameLayout = new FrameLayout(context);
+            frameLayout.setLayoutParams(new CardView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            frameLayout.setId(View.generateViewId());
+
+            fragmentManager.beginTransaction().add(frameLayout.getId(), fragment).commit();
+
+            cardView.addView(frameLayout);
+
+        }
 
     }
 

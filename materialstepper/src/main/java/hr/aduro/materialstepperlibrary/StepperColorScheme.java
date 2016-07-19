@@ -1,7 +1,5 @@
 package hr.aduro.materialstepperlibrary;
 
-import android.graphics.Color;
-
 /**
  * Utility class for setting colors of various widgets in VerticalStep
  *
@@ -9,48 +7,43 @@ import android.graphics.Color;
  */
 public class StepperColorScheme {
 
-    private static Color STEP_NUMBER_COLOR,
-            STEP_LINE_COLOR,
-            STEP_TITLE_COLOR,
-            STEP_CARD_BACKGROUND_COLOR,
-            NEXT_BTN_BACKGROUND_COLOR,
-            NEXT_BTN_TEXT_COLOR,
-            SKIP_BTN_BACKGROUND_COLOR,
-            SKIP_BTN_TEXT_COLOR;
+    private static int STEP_NUMBER_COLOR = -1,
+            STEP_LINE_COLOR = -1,
+            STEP_TITLE_COLOR = -1,
+            NEXT_BTN_BACKGROUND_COLOR = -1,
+            NEXT_BTN_TEXT_COLOR = -1,
+            SKIP_BTN_BACKGROUND_COLOR = -1,
+            SKIP_BTN_TEXT_COLOR = -1;
 
     ///////////////
     //  SETTERS  //
     ///////////////
 
-    public void setStepNumberColor(Color stepNumberColor) {
+    public void setStepNumberTextColor(int stepNumberColor) {
         STEP_NUMBER_COLOR = stepNumberColor;
     }
 
-    public void setStepLineColor(Color stepLineColor) {
+    public void setStepLineColor(int stepLineColor) {
         STEP_LINE_COLOR = stepLineColor;
     }
 
-    public void setStepTitleColor(Color stepTitleColor) {
+    public void setStepTitleColor(int stepTitleColor) {
         STEP_TITLE_COLOR = stepTitleColor;
     }
 
-    public void setStepCardBackgroundColor(Color stepCaredBackgroundColor) {
-        STEP_CARD_BACKGROUND_COLOR = stepCaredBackgroundColor;
-    }
-
-    public void setNextBtnBackgroundColor(Color nextBtnBackgroundColor) {
+    public void setNextBtnBackgroundColor(int nextBtnBackgroundColor) {
         NEXT_BTN_BACKGROUND_COLOR = nextBtnBackgroundColor;
     }
 
-    public void setNextBtnTextColor(Color nextBtnTextColor) {
+    public void setNextBtnTextColor(int nextBtnTextColor) {
         NEXT_BTN_TEXT_COLOR = nextBtnTextColor;
     }
 
-    public void setSkipBtnBackgroundColor(Color skipBtnBackgroundColor) {
+    public void setSkipBtnBackgroundColor(int skipBtnBackgroundColor) {
         SKIP_BTN_BACKGROUND_COLOR = skipBtnBackgroundColor;
     }
 
-    public void setSkipBtnTextColor(Color skipBtnTextColor) {
+    public void setSkipBtnTextColor(int skipBtnTextColor) {
         SKIP_BTN_TEXT_COLOR = skipBtnTextColor;
     }
 
@@ -58,35 +51,31 @@ public class StepperColorScheme {
     //  GETTERS  //
     ///////////////
 
-    public Color getStepNumberColor() {
+    public int getStepNumberColor() {
         return STEP_NUMBER_COLOR;
     }
 
-    public static Color getStepLineColor() {
+    public int getStepLineColor() {
         return STEP_LINE_COLOR;
     }
 
-    public static Color getStepTitleColor() {
+    public int getStepTitleColor() {
         return STEP_TITLE_COLOR;
     }
 
-    public static Color getStepCardBackgroundColor() {
-        return STEP_CARD_BACKGROUND_COLOR;
-    }
-
-    public static Color getNextBtnBackgroundColor() {
+    public int getNextBtnBackgroundColor() {
         return NEXT_BTN_BACKGROUND_COLOR;
     }
 
-    public static Color getNextBtnTextColor() {
+    public int getNextBtnTextColor() {
         return NEXT_BTN_TEXT_COLOR;
     }
 
-    public static Color getSkipBtnBackgroundColor() {
+    public int getSkipBtnBackgroundColor() {
         return SKIP_BTN_BACKGROUND_COLOR;
     }
 
-    public static Color getSkipBtnTextColor() {
+    public int getSkipBtnTextColor() {
         return SKIP_BTN_TEXT_COLOR;
     }
 
