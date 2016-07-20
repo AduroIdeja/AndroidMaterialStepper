@@ -3,6 +3,7 @@ package hr.aduro.materialstepperlibrary;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -83,6 +84,10 @@ public class StepperView extends ScrollView {
             step.setTitleLabel(adapter.getTitleAt(i));
             step.setContentView(fragmentManager, adapter.getContentAt(i));
 
+            Bundle buttons = adapter.getButtonsAt(i);
+            step.setNextBtnText(buttons.getString(StepperAdapter.NEXT_TXT));
+            step.setSkipBtnText(buttons.getString(StepperAdapter.SKIP_TXT));
+
             if(stepperColorScheme!= null)
                 step.setCustomColors(stepperColorScheme);
 
@@ -115,6 +120,10 @@ public class StepperView extends ScrollView {
             step.setContentView(fragmentManager, adapter.getContentAt(i));
             step.setOnNextListener(nextListener);
             step.setOnSkipListener(skipListener);
+
+            Bundle buttons = adapter.getButtonsAt(i);
+            step.setNextBtnText(buttons.getString(StepperAdapter.NEXT_TXT));
+            step.setSkipBtnText(buttons.getString(StepperAdapter.SKIP_TXT));
 
             if(stepperColorScheme!= null)
                 step.setCustomColors(stepperColorScheme);

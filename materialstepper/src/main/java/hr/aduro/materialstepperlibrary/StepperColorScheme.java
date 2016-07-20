@@ -7,13 +7,13 @@ package hr.aduro.materialstepperlibrary;
  */
 public class StepperColorScheme {
 
-    private static int STEP_NUMBER_COLOR = -1,
-            STEP_LINE_COLOR = -1,
-            STEP_TITLE_COLOR = -1,
-            NEXT_BTN_BACKGROUND_COLOR = -1,
-            NEXT_BTN_TEXT_COLOR = -1,
-            SKIP_BTN_BACKGROUND_COLOR = -1,
-            SKIP_BTN_TEXT_COLOR = -1;
+    private static int STEP_NUMBER_COLOR = 0,
+            STEP_LINE_COLOR = 0,
+            STEP_TITLE_COLOR = 0,
+            NEXT_BTN_BACKGROUND_COLOR = 0,
+            NEXT_BTN_TEXT_COLOR = 0,
+            SKIP_BTN_BACKGROUND_COLOR = 0,
+            SKIP_BTN_TEXT_COLOR = 0;
 
     ///////////////
     //  SETTERS  //

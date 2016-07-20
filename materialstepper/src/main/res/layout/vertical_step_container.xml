@@ -60,7 +60,7 @@
 
             <Button
                 android:id="@+id/step_next_btn"
-                style="@style/Widget.AppCompat.Button.Colored"
+                android:theme="@style/Widget.AppCompat.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="36dp"
@@ -69,7 +69,7 @@
 
             <Button
                 android:id="@+id/step_skip_btn"
-                style="@style/Widget.AppCompat.Button"
+                android:theme="@style/Widget.AppCompat.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="36dp"

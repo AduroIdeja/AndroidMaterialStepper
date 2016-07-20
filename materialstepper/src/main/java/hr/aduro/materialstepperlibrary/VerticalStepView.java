@@ -114,25 +114,25 @@ class VerticalStepView extends RelativeLayout {
      */
     public void setCustomColors(StepperColorScheme stepperColorScheme) {
 
-        if (stepperColorScheme.getStepNumberColor() != -1)
+        if (stepperColorScheme.getStepNumberColor() != 0)
             stepNumber.setTextColor(stepperColorScheme.getStepNumberColor());
 
-        if(stepperColorScheme.getNextBtnBackgroundColor() != -1)
+        if (stepperColorScheme.getNextBtnBackgroundColor() != 0)
             nextBtn.getBackground().setColorFilter(stepperColorScheme.getNextBtnBackgroundColor(), PorterDuff.Mode.MULTIPLY);
 
-        if(stepperColorScheme.getSkipBtnBackgroundColor() != -1)
+        if (stepperColorScheme.getSkipBtnBackgroundColor() != 0)
             skipBtn.getBackground().setColorFilter(stepperColorScheme.getSkipBtnBackgroundColor(), PorterDuff.Mode.MULTIPLY);
 
-        if(stepperColorScheme.getNextBtnTextColor() != -1)
-            nextBtn.setTextColor(stepperColorScheme.getNextBtnBackgroundColor());
+        if (stepperColorScheme.getNextBtnTextColor() != 0)
+            nextBtn.setTextColor(stepperColorScheme.getNextBtnTextColor());
 
-        if(stepperColorScheme.getSkipBtnTextColor() != -1)
-            skipBtn.setTextColor(stepperColorScheme.getNextBtnTextColor());
+        if (stepperColorScheme.getSkipBtnTextColor() != 0)
+            skipBtn.setTextColor(stepperColorScheme.getSkipBtnTextColor());
 
-        if(stepperColorScheme.getStepLineColor() != -1)
+        if (stepperColorScheme.getStepLineColor() != 0)
             connectorLine.setBackgroundColor(stepperColorScheme.getStepLineColor());
 
-        if(stepperColorScheme.getStepTitleColor() != -1)
+        if (stepperColorScheme.getStepTitleColor() != 0)
             titleLabel.setTextColor(stepperColorScheme.getStepTitleColor());
 
     }
@@ -188,9 +188,24 @@ class VerticalStepView extends RelativeLayout {
 
     }
 
-    protected void setTitleLabel(String title){
+    protected void setTitleLabel(String title) {
 
         titleLabel.setText(title);
+
+    }
+
+    protected void setNextBtnText(String text) {
+
+        nextBtn.setText(text);
+
+    }
+
+    protected void setSkipBtnText(String text) {
+
+        if (text != null)
+            skipBtn.setText(text);
+        else
+            skipBtn.setVisibility(View.GONE);
 
     }
 

@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
         stepperView = (StepperView) findViewById(R.id.stepper_view);
         adapter = new StepperAdapter(getFragmentManager());
 
-        adapter.add("First step", new BlankFragment1());
-        adapter.add("Second title", new BlankFragment2());
-        adapter.add("Just playing", new BlankFragment3());
+        adapter.add("First step", new BlankFragment1(), "next", null);
+        adapter.add("Second title", new BlankFragment2(), "dalje", "preskoči");
+        adapter.add("Just playing", new BlankFragment3(), "tutto finito", null);
 
         StepperColorScheme colorScheme = new StepperColorScheme();
         colorScheme.setStepLineColor(Color.RED);

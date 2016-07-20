@@ -2,6 +2,9 @@ package hr.aduro.materialstepperlibrary;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import java.util.ArrayList;
 
@@ -10,14 +13,15 @@ import java.util.ArrayList;
  */
 public class StepperAdapter {
 
-    protected static final String STEP_TITLE = "step_title",
-            STEP_CONTENT = "step_content";
+    protected static final String NEXT_TXT = "next_btn_txt",
+            SKIP_TXT = "skip_btn_txt";
 
     private FragmentManager fragmentManager;
     private StepperColorScheme stepperColorScheme = null;
 
     private ArrayList<Fragment> contents = new ArrayList<>();
     private ArrayList<String> titles = new ArrayList<>();
+    private ArrayList<Bundle> buttons = new ArrayList<>();
 
     ///////////////////
     //  CONSTRUCTOR  //
@@ -57,6 +61,12 @@ public class StepperAdapter {
 
     }
 
+    public Bundle getButtonsAt(int position){
+
+        return buttons.get(position);
+
+    }
+
     public StepperColorScheme getStepperColorScheme() {
 
         return stepperColorScheme;
@@ -77,10 +87,15 @@ public class StepperAdapter {
     //  HELPERS  //
     ///////////////
 
-    public void add(String title, Fragment fragment) {
+    public void add(String title, Fragment fragment, @NonNull String nextBtnText, @Nullable String skipBtnText) {
 
         contents.add(fragment);
         titles.add(title);
+
+        Bundle bundle = new Bundle();
+        bundle.putString(NEXT_TXT, nextBtnText);
+        bundle.putString(SKIP_TXT, skipBtnText);
+        buttons.add(bundle);
 
     }
 
