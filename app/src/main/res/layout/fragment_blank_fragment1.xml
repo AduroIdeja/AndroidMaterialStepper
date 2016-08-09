@@ -1,13 +1,16 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="hr.aduro.materialstepper.BlankFragment1">
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp"
+    android:background="@android:color/white">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment1" />
-
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:id="@+id/frag_one_text"
+        android:hint="Enter some text..."
+        android:textColorHint="@android:color/darker_gray"
+        android:textColor="@android:color/black" />
+</LinearLayout>

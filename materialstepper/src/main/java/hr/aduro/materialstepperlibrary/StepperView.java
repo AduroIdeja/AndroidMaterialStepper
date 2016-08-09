@@ -3,7 +3,6 @@ package hr.aduro.materialstepperlibrary;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -73,6 +72,7 @@ public class StepperView extends ScrollView {
         for (int i = 0; i < count; i++) {
 
             VerticalStepView step = new VerticalStepView(context);
+            StepperButtonListener listener = adapter.getBtnListenersAt(i);
 
             if (i == 0)
                 step.activateStep();
@@ -82,50 +82,14 @@ public class StepperView extends ScrollView {
 
             step.setStepNumber(i + 1);
             step.setTitleLabel(adapter.getTitleAt(i));
-            step.setContentView(fragmentManager, adapter.getContentAt(i));
+            step.setContentView(fragmentManager, adapter.getFragmentAt(i));
 
-            Bundle buttons = adapter.getButtonsAt(i);
-            step.setNextBtnText(buttons.getString(StepperAdapter.NEXT_TXT));
-            step.setSkipBtnText(buttons.getString(StepperAdapter.SKIP_TXT));
+            step.setNextBtnText(listener.getNextBtnText());
+            step.setSkipBtnText(listener.getSkipBtnText());
+            step.setOnNextListener(listener);
+            step.setOnSkipListener(listener);
 
-            if(stepperColorScheme!= null)
-                step.setCustomColors(stepperColorScheme);
-
-            step.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-            container.addView(step);
-
-        }
-
-    }
-
-    public void setAdapter(StepperAdapter stepperAdapter, StepperButtonListener nextListener, StepperButtonListener skipListener) {
-
-        adapter = stepperAdapter;
-        int count = adapter.getCount();
-        FragmentManager fragmentManager = adapter.getFragmentManager();
-        StepperColorScheme stepperColorScheme = adapter.getStepperColorScheme();
-
-        for (int i = 0; i < count; i++) {
-
-            VerticalStepView step = new VerticalStepView(context);
-
-            if (i == 0)
-                step.activateStep();
-
-            if (i == (count - 1))
-                step.hideConnector();
-
-            step.setStepNumber(i + 1);
-            step.setTitleLabel(adapter.getTitleAt(i));
-            step.setContentView(fragmentManager, adapter.getContentAt(i));
-            step.setOnNextListener(nextListener);
-            step.setOnSkipListener(skipListener);
-
-            Bundle buttons = adapter.getButtonsAt(i);
-            step.setNextBtnText(buttons.getString(StepperAdapter.NEXT_TXT));
-            step.setSkipBtnText(buttons.getString(StepperAdapter.SKIP_TXT));
-
-            if(stepperColorScheme!= null)
+            if (stepperColorScheme != null)
                 step.setCustomColors(stepperColorScheme);
 
             step.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));

@@ -2,17 +2,21 @@ package hr.aduro.materialstepper;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
+import android.widget.Toast;
 
 import hr.aduro.materialstepperlibrary.StepperAdapter;
+import hr.aduro.materialstepperlibrary.StepperButtonListener;
+import hr.aduro.materialstepperlibrary.StepperButtonListenerDefault;
 import hr.aduro.materialstepperlibrary.StepperColorScheme;
 import hr.aduro.materialstepperlibrary.StepperView;
 
 public class MainActivity extends AppCompatActivity {
 
     private StepperView stepperView;
-    private StepperAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,20 +24,46 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        stepperView = (StepperView) findViewById(R.id.stepper_view);
-        adapter = new StepperAdapter(getFragmentManager());
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        adapter.add("First step", new BlankFragment1(), "next", null);
-        adapter.add("Second title", new BlankFragment2(), "dalje", "preskoči");
-        adapter.add("Just playing", new BlankFragment3(), "tutto finito", null);
+        getSupportActionBar().setTitle("Stepper Demo");
+
+        stepperView = (StepperView) findViewById(R.id.stepper_view);
+        final StepperAdapter adapter = new StepperAdapter(getFragmentManager());
+
+        StepperButtonListener nextListener = new StepperButtonListener("next") {
+
+            @Override
+            public boolean onNext() {
+
+                BlankFragment1 fragment1 = (BlankFragment1) adapter.getFragmentAt(0);
+
+                String text = fragment1.getEditTextEntry();
+
+                if(text.toCharArray().length > 0)  return super.onNext();
+                else{
+
+                    Toast.makeText(MainActivity.this, "enter some text", Toast.LENGTH_SHORT).show();
+                    return false;
+
+                }
+
+            }
+
+        };
+
+        adapter.add("First step", new BlankFragment1(), nextListener);
+        adapter.add("Second title", new BlankFragment2(), new StepperButtonListenerDefault("go ahead"));
+        adapter.add(null, new BlankFragment3(), new StepperButtonListenerDefault("tutto finito"));
 
         StepperColorScheme colorScheme = new StepperColorScheme();
-        colorScheme.setStepLineColor(Color.RED);
-        colorScheme.setStepTitleColor(Color.BLUE);
-        colorScheme.setStepNumberTextColor(Color.YELLOW);
-        colorScheme.setSkipBtnBackgroundColor(Color.GREEN);
-        colorScheme.setNextBtnBackgroundColor(Color.BLACK);
-        colorScheme.setSkipBtnTextColor(Color.MAGENTA);
+        colorScheme.setStepLineColor(Color.BLACK);
+        colorScheme.setStepTitleColor(Color.DKGRAY);
+        colorScheme.setStepNumberTextColor(Color.WHITE);
+        colorScheme.setNextBtnBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        colorScheme.setSkipBtnBackgroundColor(Color.WHITE);
+        colorScheme.setSkipBtnTextColor(Color.DKGRAY);
         colorScheme.setNextBtnTextColor(Color.WHITE);
 
         adapter.setStepperColorScheme(colorScheme);
