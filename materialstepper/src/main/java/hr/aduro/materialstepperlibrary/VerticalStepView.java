@@ -103,6 +103,18 @@ class VerticalStepView extends RelativeLayout {
 
     }
 
+    public boolean getIsNextEnabled(){
+
+        return nextBtn.isEnabled();
+
+    }
+
+    public boolean getIsSkipEnabled(){
+
+        return skipBtn.isEnabled();
+
+    }
+
     ///////////////
     //  SETTERS  //
     ///////////////
@@ -302,6 +314,36 @@ class VerticalStepView extends RelativeLayout {
     public void skipStep() {
 
         revertStep();
+
+    }
+
+    /**
+     * Enable/disable the NEXT button
+     * @param enable - boolean
+     */
+    public void enableNextBtn(boolean enable) {
+
+        nextBtn.setEnabled(enable);
+        nextBtn.setClickable(enable);
+        if(enable)
+            nextBtn.setAlpha(1);
+        else
+            nextBtn.setAlpha(0.5f);
+
+    }
+
+    /**
+     * Enable/disable the SKIP button
+     * @param enable - boolean
+     */
+    public void enableSkipBtn(boolean enable) {
+
+        skipBtn.setEnabled(enable);
+        skipBtn.setClickable(enable);
+        if(enable)
+            skipBtn.setAlpha(1);
+        else
+            skipBtn.setAlpha(0.5f);
 
     }
 

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -14,7 +15,7 @@ import hr.aduro.materialstepperlibrary.StepperButtonListenerDefault;
 import hr.aduro.materialstepperlibrary.StepperColorScheme;
 import hr.aduro.materialstepperlibrary.StepperView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BlankFragment2.OnFragmentInteractionListener{
 
     private StepperView stepperView;
 
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         stepperView = (StepperView) findViewById(R.id.stepper_view);
         final StepperAdapter adapter = new StepperAdapter(getFragmentManager());
 
-        StepperButtonListener nextListener = new StepperButtonListener("next") {
+        StepperButtonListener nextListener = new StepperButtonListener("next", "skip") {
 
             @Override
             public boolean onNext() {
@@ -41,13 +42,25 @@ public class MainActivity extends AppCompatActivity {
 
                 String text = fragment1.getEditTextEntry();
 
-                if(text.toCharArray().length > 0)  return super.onNext();
-                else{
+                if(text.toCharArray().length > 0) {
+
+                    return super.onNext();
+
+                }else{
 
                     Toast.makeText(MainActivity.this, "enter some text", Toast.LENGTH_SHORT).show();
                     return false;
 
                 }
+
+            }
+
+            @Override
+            public void onSkip() {
+
+                super.onSkip();
+
+                stepperView.jumpToStep(2);
 
             }
 
@@ -70,12 +83,17 @@ public class MainActivity extends AppCompatActivity {
 
         stepperView.setAdapter(adapter);
 
+        stepperView.enableNextForStep(1, false);
+
+        Log.d(this.getClass().getSimpleName(), Boolean.toString(stepperView.getIsNextEnabled(0)));
+        Log.d(this.getClass().getSimpleName(), Boolean.toString(stepperView.getIsNextEnabled(1)));
+
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
 
-        if (keyCode == KeyEvent.KEYCODE_BACK && stepperView.getCurrentStep() > 0) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && stepperView.getCurrentStepIndex() > 0) {
 
             stepperView.previousStep();
             return true;
@@ -85,4 +103,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onFragmentInteraction(boolean checked) {
+
+        stepperView.enableNextForStep(1, checked);
+
+    }
 }

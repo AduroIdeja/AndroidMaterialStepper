@@ -19,6 +19,7 @@ public class StepperView extends ScrollView {
     private static int currentStep = 0;
     private static StepperAdapter adapter;
     private static StepperView stepperView;
+    private static int skippedFromStep = -1;
 
     ////////////////////
     //  CONSTRUCTORS  //
@@ -52,7 +53,7 @@ public class StepperView extends ScrollView {
     //  GETTERS  //
     ///////////////
 
-    public int getCurrentStep() {
+    public int getCurrentStepIndex() {
 
         return currentStep;
 
@@ -131,7 +132,14 @@ public class StepperView extends ScrollView {
             VerticalStepView step = (VerticalStepView) container.getChildAt(currentStep);
             step.revertStep();
 
-            currentStep--;
+            if(skippedFromStep == -1)
+                currentStep--;
+            else {
+
+                currentStep = skippedFromStep;
+                skippedFromStep = -1;
+
+            }
 
             step = (VerticalStepView) container.getChildAt(currentStep);
             step.activateStep();
@@ -149,6 +157,7 @@ public class StepperView extends ScrollView {
      */
     public void jumpToStep(int stepIndex) {
 
+        skippedFromStep = currentStep;
         currentStep = stepIndex;
         VerticalStepView step = (VerticalStepView) container.getChildAt(currentStep);
 
@@ -183,6 +192,93 @@ public class StepperView extends ScrollView {
             });
 
         }
+
+    }
+
+    /**
+     * Convenience method for enabling or disabling the NEXT button of desired step. This method
+     * should be called AFTER the adapter is set on the StepperView, otherwise the desired button
+     * will not be modified.
+     *
+     * @param stepIndex - int, desired step
+     * @param enable    - boolean
+     */
+    public void enableNextForStep(int stepIndex, boolean enable) {
+
+        if (container.getChildCount() >= stepIndex + 1)
+            ((VerticalStepView) container.getChildAt(stepIndex)).enableNextBtn(enable);
+        else
+            throw new IndexOutOfBoundsException("Step not found at index " + Integer.toString(stepIndex) +
+                    " (step count: " + Integer.toString(container.getChildCount()) + ").\nPOSSIBLE FIX: Set " +
+                    "adapter (containing all steps) to " + this.getClass().getSimpleName() +
+                    " BEFORE calling this method.");
+
+
+    }
+
+    /**
+     * Convenience method for enabling or disabling the SKIP button of desired step. This method
+     * should be called AFTER the adapter is set on the StepperView, otherwise the desired button
+     * will not be modified.
+     *
+     * @param stepIndex - int, desired step
+     * @param enable    - boolean
+     */
+    public void enableSkipForStep(int stepIndex, boolean enable) {
+
+        if (container.getChildCount() >= stepIndex + 1)
+            ((VerticalStepView) container.getChildAt(stepIndex)).enableSkipBtn(enable);
+        else
+            throw new IndexOutOfBoundsException("Step not found at index " + Integer.toString(stepIndex) +
+                    " (step count: " + Integer.toString(container.getChildCount()) + ").\nPOSSIBLE FIX: Set " +
+                    "adapter (containing all steps) to " + this.getClass().getSimpleName() +
+                    " BEFORE calling this method.");
+
+    }
+
+    /**
+     * Convenience method for getting NEXT button enabled status. This method
+     * should be called AFTER the adapter is set on the StepperView, otherwise the desired button
+     * will not be modified.
+     *
+     * @param stepIndex - int, desired step
+     */
+    public boolean getIsNextEnabled(int stepIndex) {
+
+        boolean enabled;
+
+        if (container.getChildCount() >= stepIndex + 1)
+            enabled = ((VerticalStepView) container.getChildAt(stepIndex)).getIsNextEnabled();
+        else
+            throw new IndexOutOfBoundsException("Step not found at index " + Integer.toString(stepIndex) +
+                    " (step count: " + Integer.toString(container.getChildCount()) + ").\nPOSSIBLE FIX: Set " +
+                    "adapter (containing all steps) to " + this.getClass().getSimpleName() +
+                    " BEFORE calling this method.");
+
+        return enabled;
+
+    }
+
+    /**
+     * Convenience method for getting SKIP button enabled status. This method
+     * should be called AFTER the adapter is set on the StepperView, otherwise the desired button
+     * will not be modified.
+     *
+     * @param stepIndex - int, desired step
+     */
+    public boolean getIsSkipEnabled(int stepIndex) {
+
+        boolean enabled = false;
+
+        if (container.getChildCount() >= stepIndex + 1)
+            enabled = ((VerticalStepView) container.getChildAt(stepIndex)).getIsSkipEnabled();
+        else
+            throw new IndexOutOfBoundsException("Step not found at index " + Integer.toString(stepIndex) +
+                    " (step count: " + Integer.toString(container.getChildCount()) + ").\nPOSSIBLE FIX: Set " +
+                    "adapter (containing all steps) to " + this.getClass().getSimpleName() +
+                    " BEFORE calling this method.");
+
+        return enabled;
 
     }
 
