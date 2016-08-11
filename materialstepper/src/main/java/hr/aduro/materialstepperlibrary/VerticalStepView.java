@@ -279,6 +279,7 @@ class VerticalStepView extends RelativeLayout {
 
         contentLayout.setVisibility(GONE);
         stepNumber.setBackground(ContextCompat.getDrawable(context, R.drawable.step_background_inactive));
+        stepNumber.setText(String.format(Locale.getDefault(), "%d", stepIndex + 1));
         titleLabel.setTypeface(null, Typeface.NORMAL);
 
     }
