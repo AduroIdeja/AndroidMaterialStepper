@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment2.On
         };
 
         adapter.add("First step", new BlankFragment1(), nextListener);
-        adapter.add("Second title", new BlankFragment2(), new StepperButtonListenerDefault("go ahead"));
+        adapter.add("Second title", new BlankFragment2(), new StepperButtonListenerDefault("go ahead", null));
         adapter.add(null, new BlankFragment3(), new StepperButtonListenerDefault("tutto finito"));
 
         StepperColorScheme colorScheme = new StepperColorScheme();
@@ -84,9 +83,6 @@ public class MainActivity extends AppCompatActivity implements BlankFragment2.On
         stepperView.setAdapter(adapter);
 
         stepperView.enableNextForStep(1, false);
-
-        Log.d(this.getClass().getSimpleName(), Boolean.toString(stepperView.getIsNextEnabled(0)));
-        Log.d(this.getClass().getSimpleName(), Boolean.toString(stepperView.getIsNextEnabled(1)));
 
     }
 
