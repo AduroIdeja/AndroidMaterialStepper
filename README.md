@@ -143,7 +143,7 @@ will proceed to the next step, otherwise it will do nothing.
 
 The `onSkip()` method has no return value since it *will skip* regardless of the added functionality. The default skip is 
 **one step**, meaning that it will skip to the next step in the chain unless otherwise defined 
-(covered in [this](### StepperButtonListener) section).
+(covered in [this](### Jump to certain step) section).
 
 ## Working with SteperView
 
