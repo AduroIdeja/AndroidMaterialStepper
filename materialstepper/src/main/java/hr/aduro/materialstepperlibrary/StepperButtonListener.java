@@ -42,7 +42,7 @@ public abstract class StepperButtonListener {
      */
 
     /**
-     * Extend onSkip functionality with own implentation.
+     * Extend onSkip functionality with own implementation.
      */
     public void onSkip() {}
 

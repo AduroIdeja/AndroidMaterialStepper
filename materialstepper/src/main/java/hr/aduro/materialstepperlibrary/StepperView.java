@@ -15,11 +15,11 @@ import android.widget.ScrollView;
 public class StepperView extends ScrollView {
 
     private Context context;
-    private static LinearLayout container;
-    private static int currentStep = 0;
-    private static StepperAdapter adapter;
-    private static StepperView stepperView;
-    private static int skippedFromStep = -1;
+    private LinearLayout container;
+    private int currentStep = 0;
+    private StepperAdapter adapter;
+    private StepperView stepperView;
+    private int skippedFromStep = -1;
 
     ////////////////////
     //  CONSTRUCTORS  //
@@ -72,7 +72,7 @@ public class StepperView extends ScrollView {
 
         for (int i = 0; i < count; i++) {
 
-            VerticalStepView step = new VerticalStepView(context);
+            VerticalStepView step = new VerticalStepView(context, stepperView);
             StepperButtonListener listener = adapter.getBtnListenersAt(i);
 
             if (i == 0)
@@ -107,7 +107,7 @@ public class StepperView extends ScrollView {
     /**
      * Performs a full action required for displaying the next step
      */
-    protected static void nextStep() {
+    protected void nextStep() {
 
         if (currentStep < adapter.getCount() - 1) {
 
@@ -132,7 +132,7 @@ public class StepperView extends ScrollView {
             VerticalStepView step = (VerticalStepView) container.getChildAt(currentStep);
             step.revertStep();
 
-            if(skippedFromStep == -1)
+            if (skippedFromStep == -1)
                 currentStep--;
             else {
 
@@ -172,7 +172,7 @@ public class StepperView extends ScrollView {
      *
      * @param step - VerticalStep, target step to display
      */
-    private static void scrollToActiveElement(final VerticalStepView step) {
+    private void scrollToActiveElement(final VerticalStepView step) {
 
         Rect scrollBounds = new Rect();
 
@@ -242,6 +242,7 @@ public class StepperView extends ScrollView {
      * will not be modified.
      *
      * @param stepIndex - int, desired step
+     * @return - is NEXT button enabled
      */
     public boolean getIsNextEnabled(int stepIndex) {
 
@@ -265,6 +266,7 @@ public class StepperView extends ScrollView {
      * will not be modified.
      *
      * @param stepIndex - int, desired step
+     * @return - is SKIP button enabled
      */
     public boolean getIsSkipEnabled(int stepIndex) {
 

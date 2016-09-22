@@ -32,7 +32,7 @@ class VerticalStepView extends RelativeLayout {
         public void onClick(View view) {
 
             completeStep();
-            StepperView.nextStep();
+            parent.nextStep();
 
         }
 
@@ -43,12 +43,13 @@ class VerticalStepView extends RelativeLayout {
                 public void onClick(View view) {
 
                     skipStep();
-                    StepperView.nextStep();
+                    parent.nextStep();
 
                 }
 
             };
 
+    private StepperView parent;
     private TextView titleLabel, stepNumber;
     private Button nextBtn, skipBtn;
     private LinearLayout contentLayout, connectorLine;
@@ -60,16 +61,18 @@ class VerticalStepView extends RelativeLayout {
     //  CONSTRUCTORS  //
     ////////////////////
 
-    public VerticalStepView(Context context) {
+    public VerticalStepView(Context context, StepperView parent) {
 
         super(context);
+        this.parent = parent;
         initialize(context);
 
     }
 
-    public VerticalStepView(Context context, AttributeSet attributeSet) {
+    public VerticalStepView(Context context, AttributeSet attributeSet, StepperView parent) {
 
         super(context, attributeSet);
+        this.parent = parent;
         initialize(context);
 
     }
@@ -120,7 +123,7 @@ class VerticalStepView extends RelativeLayout {
     ///////////////
 
     /**
-     * Sets custom colors for various visual elements. If not set the widget uses colors defined in @style
+     * Sets custom colors for various visual elements. If not set the widget uses colors defined in styles.xml
      *
      * @param stepperColorScheme - a color scheme with defined colors
      */
@@ -164,7 +167,7 @@ class VerticalStepView extends RelativeLayout {
                     if (nextListener.onNext()) {
 
                         completeStep();
-                        StepperView.nextStep();
+                        parent.nextStep();
 
                     }
 
@@ -190,7 +193,7 @@ class VerticalStepView extends RelativeLayout {
 
                     skipListener.onSkip();
                     skipStep();
-                    StepperView.nextStep();
+                    parent.nextStep();
 
                 }
 

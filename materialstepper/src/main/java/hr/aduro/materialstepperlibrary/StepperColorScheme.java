@@ -51,31 +51,31 @@ public class StepperColorScheme {
     //  GETTERS  //
     ///////////////
 
-    public int getStepNumberColor() {
+    int getStepNumberColor() {
         return STEP_NUMBER_COLOR;
     }
 
-    public int getStepLineColor() {
+    int getStepLineColor() {
         return STEP_LINE_COLOR;
     }
 
-    public int getStepTitleColor() {
+    int getStepTitleColor() {
         return STEP_TITLE_COLOR;
     }
 
-    public int getNextBtnBackgroundColor() {
+    int getNextBtnBackgroundColor() {
         return NEXT_BTN_BACKGROUND_COLOR;
     }
 
-    public int getNextBtnTextColor() {
+    int getNextBtnTextColor() {
         return NEXT_BTN_TEXT_COLOR;
     }
 
-    public int getSkipBtnBackgroundColor() {
+    int getSkipBtnBackgroundColor() {
         return SKIP_BTN_BACKGROUND_COLOR;
     }
 
-    public int getSkipBtnTextColor() {
+    int getSkipBtnTextColor() {
         return SKIP_BTN_TEXT_COLOR;
     }
 

@@ -14,7 +14,7 @@ import hr.aduro.materialstepperlibrary.StepperButtonListenerDefault;
 import hr.aduro.materialstepperlibrary.StepperColorScheme;
 import hr.aduro.materialstepperlibrary.StepperView;
 
-public class MainActivity extends AppCompatActivity implements BlankFragment2.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements BlankFragment2.OnFragmentInteractionListener {
 
     private StepperView stepperView;
 
@@ -41,11 +41,11 @@ public class MainActivity extends AppCompatActivity implements BlankFragment2.On
 
                 String text = fragment1.getEditTextEntry();
 
-                if(text.toCharArray().length > 0) {
+                if (text.toCharArray().length > 0) {
 
                     return super.onNext();
 
-                }else{
+                } else {
 
                     Toast.makeText(MainActivity.this, "enter some text", Toast.LENGTH_SHORT).show();
                     return false;
@@ -65,9 +65,21 @@ public class MainActivity extends AppCompatActivity implements BlankFragment2.On
 
         };
 
+        StepperButtonListener finishListener = new StepperButtonListener("next") {
+
+            @Override
+            public boolean onNext() {
+
+                Toast.makeText(MainActivity.this, "Last step complete", Toast.LENGTH_SHORT).show();
+                return false;
+
+            }
+
+        };
+
         adapter.add("First step", new BlankFragment1(), nextListener);
         adapter.add("Second title", new BlankFragment2(), new StepperButtonListenerDefault("go ahead", null));
-        adapter.add(null, new BlankFragment3(), new StepperButtonListenerDefault("tutto finito"));
+        adapter.add(null, new BlankFragment3(), finishListener);
 
         StepperColorScheme colorScheme = new StepperColorScheme();
         colorScheme.setStepLineColor(Color.BLACK);

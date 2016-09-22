@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 /**
  * An adapter class for populating the StepperView.
- * <p/>
+ *
  * The adapter takes in a title, fragment, and a custom button listener.
  * It then creates the stepper view with added fragments and associated attributes.
  *
@@ -47,7 +47,7 @@ public class StepperAdapter {
      *
      * @return - int
      */
-    public int getCount() {
+    int getCount() {
 
         return fragments.size();
 
@@ -58,7 +58,7 @@ public class StepperAdapter {
      *
      * @return - FragmentManager
      */
-    protected FragmentManager getFragmentManager() {
+    FragmentManager getFragmentManager() {
 
         return fragmentManager;
 
@@ -83,7 +83,7 @@ public class StepperAdapter {
      * @param position - int
      * @return - String
      */
-    public String getTitleAt(int position) {
+    String getTitleAt(int position) {
 
         return titles.get(position);
 
@@ -94,7 +94,7 @@ public class StepperAdapter {
      *
      * @return - StepperColorScheme
      */
-    protected StepperColorScheme getStepperColorScheme() {
+    StepperColorScheme getStepperColorScheme() {
 
         return stepperColorScheme;
 
@@ -106,7 +106,7 @@ public class StepperAdapter {
      * @param position - int
      * @return - StepperButtonListener
      */
-    protected StepperButtonListener getBtnListenersAt(int position) {
+    StepperButtonListener getBtnListenersAt(int position) {
 
         return btnListeners.get(position);
 
