@@ -130,7 +130,7 @@ StepperButtonListener nextListener = new StepperButtonListener("next", "skip") {
 
         super.onSkip();
                 
-        // Do operations here, like display mesaages
+        // Do operations here, like display messages
 
     }
 
