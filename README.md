@@ -2,6 +2,8 @@
 
 A lightweight library for use with stepped processes.
 
+> **NOTE:** Currnetly the library contains *ONLY* a **vertical stepper**. There are plans to develop a complete horizontal stepper to make the library complete
+
 ----
 
 ## **General**
@@ -15,9 +17,24 @@ The visual design is inspired by Googles' Material Design guidelines and is supp
 
 ## **Installation**
 
-> NOTE: when published as a library it will be available as a *gradle* and *maven* dependancy
+The library is available for download from `jcenter` and `Maven Central`. Use the following lines of code to include the library in your project.
 
-Download the repository and copy the `materialstepper` folder to your projects' folder.
+Gradle:
+```gradle
+compile 'hr.aduro:materialstepper:1.0'
+```
+
+Maven:
+```maven
+<dependency> 
+    <groupId>hr.aduro</groupId> 
+    <artifactId>materialstepper</artifactId> 
+    <version>1.0</version> 
+    <type>pom</type> 
+</dependency>
+```
+
+Or download the repository and copy the `materialstepper` folder to your projects' folder.
 After that add this to your *app-level* `build.gradle`. 
 
 ```gradle
@@ -91,7 +108,7 @@ For both listeners a single `String` parameter is required on initialization. Th
 label. The reason this is mandatory is that according to the Material Design Guidelines there should always be a 
 button present that the user can press indicating he has copmleted a step. Also, I didn't want to hardcode a "NEXT" 
 string because I think that if you want to do a non-english or multilingual app you should provide your own strings.
-Both listeners also take a second, optional, `String` that will be used as the SKIP button. If this string is not defined
+Both listeners also take a second, optional, `String` that will be used as the SKIP button label. If this string is not defined
 the skip button will not be displayed.
 
 ### StepperButtonListenerDefault
@@ -169,14 +186,15 @@ stepperView.getIsNextEnabled();
 ```
 
 ### Getting current step index
-If you want to retrieve the current stepper position a.k.a. the index of the current step use:
+If you want to retrieve the current stepper position a.k.a. the index of the current step in use:
 ```java
+// returns a 0 based step index
 int index = stepperView.getCurrentStepIndex();
 ```
 
 ### Implementing *onBackPress()* behaviour for StepperView
 
-This should be implemented if you want to enable a *returning to previous step* behaviour on keyboard BACK press.
+This should be implemented if you want to enable a *returning to previous step* behaviour on hardware keyboard BACK press.
 The `previousStep()` method returns to the previously active step.
 Simply add the following to your activity:
 
@@ -235,6 +253,7 @@ adapter.getFragmentAt(stepIndex);
 > **NOTE:** this method returns the `Fragment` class and needs to be cast to your custom fragment
 
 ## Customizing the visual appearance
+The library will use the default color scheme as devined in your `styles.xml` file. I reccomend you set your own color scheme for the stepper, the guidelines are [here](https://material.google.com/components/steppers.html#steppers-types-of-steps).
 
 ```java
 StepperColorScheme colorScheme = new StepperColorScheme();
