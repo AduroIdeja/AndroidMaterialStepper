@@ -6,8 +6,8 @@ import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatDrawableManager;
 import android.support.v7.widget.CardView;
-import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -61,17 +61,16 @@ class VerticalStepView extends RelativeLayout {
     //  CONSTRUCTORS  //
     ////////////////////
 
-    public VerticalStepView(Context context, StepperView parent) {
+    public VerticalStepView(Context context) {
 
         super(context);
-        this.parent = parent;
         initialize(context);
 
     }
 
-    public VerticalStepView(Context context, AttributeSet attributeSet, StepperView parent) {
+    public VerticalStepView(Context context, StepperView parent) {
 
-        super(context, attributeSet);
+        super(context);
         this.parent = parent;
         initialize(context);
 
@@ -106,13 +105,13 @@ class VerticalStepView extends RelativeLayout {
 
     }
 
-    public boolean getIsNextEnabled(){
+    public boolean getIsNextEnabled() {
 
         return nextBtn.isEnabled();
 
     }
 
-    public boolean getIsSkipEnabled(){
+    public boolean getIsSkipEnabled() {
 
         return skipBtn.isEnabled();
 
@@ -280,6 +279,7 @@ class VerticalStepView extends RelativeLayout {
 
         contentLayout.setVisibility(VISIBLE);
         stepNumber.setBackground(ContextCompat.getDrawable(context, R.drawable.step_background_active));
+//        stepNumber.setBackground(AppCompatDrawableManager.get().getDrawable(context, R.drawable.step_background_active));
         titleLabel.setTypeface(null, Typeface.BOLD);
 
         if (stepNumber.getText().toString().equals(""))
@@ -294,6 +294,7 @@ class VerticalStepView extends RelativeLayout {
 
         contentLayout.setVisibility(GONE);
         stepNumber.setBackground(ContextCompat.getDrawable(context, R.drawable.step_background_inactive));
+//        stepNumber.setBackground(AppCompatDrawableManager.get().getDrawable(context, R.drawable.step_background_inactive));
         stepNumber.setText(String.format(Locale.getDefault(), "%d", stepIndex + 1));
         titleLabel.setTypeface(null, Typeface.NORMAL);
 
@@ -307,6 +308,7 @@ class VerticalStepView extends RelativeLayout {
         contentLayout.setVisibility(GONE);
         stepNumber.setText(null);
         stepNumber.setBackground(ContextCompat.getDrawable(context, R.drawable.step_background_completed));
+//        stepNumber.setBackground(AppCompatDrawableManager.get().getDrawable(context, R.drawable.step_background_completed));
         titleLabel.setTypeface(null, Typeface.NORMAL);
 
     }
@@ -322,13 +324,14 @@ class VerticalStepView extends RelativeLayout {
 
     /**
      * Enable/disable the NEXT button
+     *
      * @param enable - boolean
      */
     public void enableNextBtn(boolean enable) {
 
         nextBtn.setEnabled(enable);
         nextBtn.setClickable(enable);
-        if(enable)
+        if (enable)
             nextBtn.setAlpha(1);
         else
             nextBtn.setAlpha(0.5f);
@@ -337,13 +340,14 @@ class VerticalStepView extends RelativeLayout {
 
     /**
      * Enable/disable the SKIP button
+     *
      * @param enable - boolean
      */
     public void enableSkipBtn(boolean enable) {
 
         skipBtn.setEnabled(enable);
         skipBtn.setClickable(enable);
-        if(enable)
+        if (enable)
             skipBtn.setAlpha(1);
         else
             skipBtn.setAlpha(0.5f);
