@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements BlankFragment2.On
         colorScheme.setStepLineColor(Color.BLACK);
         colorScheme.setStepTitleColor(Color.DKGRAY);
         colorScheme.setStepNumberTextColor(Color.WHITE);
-        colorScheme.setNextBtnBackgroundColor(ContextCompat.getColor(this, R.color.colorAccent));
+        colorScheme.setNextBtnBackgroundColor(ContextCompat.getColor(this, R.color.colorPrimary));
         colorScheme.setSkipBtnBackgroundColor(Color.WHITE);
         colorScheme.setSkipBtnTextColor(Color.DKGRAY);
         colorScheme.setNextBtnTextColor(Color.WHITE);

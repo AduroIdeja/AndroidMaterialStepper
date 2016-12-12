@@ -3,11 +3,18 @@ package hr.aduro.materialstepperlibrary;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.LayerDrawable;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatDrawableManager;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.CardView;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -93,6 +100,25 @@ class VerticalStepView extends RelativeLayout {
         nextBtn.setOnClickListener(nextListener);
         skipBtn.setOnClickListener(skipListener);
 
+        TypedValue typedValue = new TypedValue();
+        Resources.Theme theme = context.getTheme();
+        theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
+        int color = typedValue.data;
+
+        // coloring buttons for pre lollipop devices
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+
+            ((AppCompatButton) nextBtn).setSupportBackgroundTintList(new ColorStateList(new int[][]{new int[0]}, new int[]{color}));
+            ((AppCompatButton) skipBtn).setSupportBackgroundTintList(new ColorStateList(new int[][]{new int[0]}, new int[]{android.R.color.white}));
+
+        }else{
+
+            nextBtn.setBackgroundTintList(new ColorStateList(new int[][]{new int[0]}, new int[]{color}));
+            skipBtn.setBackgroundTintList(new ColorStateList(new int[][]{new int[0]}, new int[]{android.R.color.white}));
+
+        }
+
+
     }
 
     ///////////////
@@ -131,11 +157,27 @@ class VerticalStepView extends RelativeLayout {
         if (stepperColorScheme.getStepNumberColor() != 0)
             stepNumber.setTextColor(stepperColorScheme.getStepNumberColor());
 
-        if (stepperColorScheme.getNextBtnBackgroundColor() != 0)
-            nextBtn.getBackground().setColorFilter(stepperColorScheme.getNextBtnBackgroundColor(), PorterDuff.Mode.MULTIPLY);
+        if (stepperColorScheme.getNextBtnBackgroundColor() != 0) {
 
-        if (stepperColorScheme.getSkipBtnBackgroundColor() != 0)
-            skipBtn.getBackground().setColorFilter(stepperColorScheme.getSkipBtnBackgroundColor(), PorterDuff.Mode.MULTIPLY);
+            int color = stepperColorScheme.getNextBtnBackgroundColor();
+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+                ((AppCompatButton) nextBtn).setSupportBackgroundTintList(new ColorStateList(new int[][]{new int[0]}, new int[]{color}));
+            else
+                nextBtn.getBackground().setColorFilter(color, PorterDuff.Mode.MULTIPLY);
+
+        }
+
+        if (stepperColorScheme.getSkipBtnBackgroundColor() != 0) {
+
+            int color = stepperColorScheme.getSkipBtnBackgroundColor();
+
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP)
+                ((AppCompatButton) skipBtn).setSupportBackgroundTintList(new ColorStateList(new int[][]{new int[0]}, new int[]{color}));
+            else
+                skipBtn.getBackground().setColorFilter(stepperColorScheme.getSkipBtnBackgroundColor(), PorterDuff.Mode.MULTIPLY);
+
+        }
 
         if (stepperColorScheme.getNextBtnTextColor() != 0)
             nextBtn.setTextColor(stepperColorScheme.getNextBtnTextColor());
@@ -278,8 +320,21 @@ class VerticalStepView extends RelativeLayout {
     public void activateStep() {
 
         contentLayout.setVisibility(VISIBLE);
+
         stepNumber.setBackground(ContextCompat.getDrawable(context, R.drawable.step_background_active));
-//        stepNumber.setBackground(AppCompatDrawableManager.get().getDrawable(context, R.drawable.step_background_active));
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+
+            TypedValue typedValue = new TypedValue();
+            Resources.Theme theme = context.getTheme();
+            theme.resolveAttribute(R.attr.colorAccent, typedValue, true);
+            int color = typedValue.data;
+            Drawable background = stepNumber.getBackground();
+
+            ((GradientDrawable) background).setColor(color);
+
+        }
+
         titleLabel.setTypeface(null, Typeface.BOLD);
 
         if (stepNumber.getText().toString().equals(""))
@@ -294,7 +349,6 @@ class VerticalStepView extends RelativeLayout {
 
         contentLayout.setVisibility(GONE);
         stepNumber.setBackground(ContextCompat.getDrawable(context, R.drawable.step_background_inactive));
-//        stepNumber.setBackground(AppCompatDrawableManager.get().getDrawable(context, R.drawable.step_background_inactive));
         stepNumber.setText(String.format(Locale.getDefault(), "%d", stepIndex + 1));
         titleLabel.setTypeface(null, Typeface.NORMAL);
 
@@ -308,7 +362,21 @@ class VerticalStepView extends RelativeLayout {
         contentLayout.setVisibility(GONE);
         stepNumber.setText(null);
         stepNumber.setBackground(ContextCompat.getDrawable(context, R.drawable.step_background_completed));
-//        stepNumber.setBackground(AppCompatDrawableManager.get().getDrawable(context, R.drawable.step_background_completed));
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+
+            TypedValue typedValue = new TypedValue();
+            Resources.Theme theme = context.getTheme();
+            theme.resolveAttribute(R.attr.colorPrimary, typedValue, true);
+            int color = typedValue.data;
+            LayerDrawable background = (LayerDrawable) stepNumber.getBackground();
+            GradientDrawable shape = (GradientDrawable) background.findDrawableByLayerId(R.id.step_background_completed_shape);
+
+            shape.setColor(color);
+
+        }
+
+
         titleLabel.setTypeface(null, Typeface.NORMAL);
 
     }

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/step_background_completed_shape"
-        android:drawable="@drawable/step_background_completed_circle" />
+    <item android:drawable="@drawable/step_background_completed_circle" />
 
     <item
         android:top="4dp"
