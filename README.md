@@ -1,4 +1,4 @@
-# **Material Android Stepper Library** 1.0
+# **Material Android Stepper Library** 1.1
 
 A lightweight library for use with stepped processes.
 
@@ -254,6 +254,10 @@ adapter.getFragmentAt(stepIndex);
 
 ## Customizing the visual appearance
 The library will use the default color scheme as devined in your `styles.xml` file. I reccomend you set your own color scheme for the stepper, the guidelines are [here](https://material.google.com/components/steppers.html#steppers-types-of-steps).
+
+> **NOTE:** As of version 1.1 of the library there is no need to color the *NEXT* and *SKIP* button if you wish to retain a default theme.
+
+> **NOTE:** As of version 1.1 of the library I fixed a crash for all *pre-Lollipop* devices using this library
 
 ```java
 StepperColorScheme colorScheme = new StepperColorScheme();
