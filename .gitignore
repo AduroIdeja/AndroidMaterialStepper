@@ -1,5 +1,11 @@
 *.iml
 .gradle
 /local.properties
-/.idea/*
 /build
+.idea/
+app/app-release.apk
+app/build/
+gradle/
+private_key_sender.asc
+public_key_sender.asc
+.gitignore
