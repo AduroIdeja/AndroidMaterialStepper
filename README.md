@@ -1,4 +1,6 @@
-# **Material Android Stepper Library** 1.3
+[ ![Download](https://api.bintray.com/packages/aduroideja/maven/material-stepper-library/images/download.svg) ](https://bintray.com/aduroideja/maven/material-stepper-library/_latestVersion)
+
+# **Material Android Stepper Library** 1.3.2
 
 A lightweight library for use with stepped processes.
 
@@ -21,7 +23,7 @@ The library is available for download from `jcenter` and `Maven Central`. Use th
 
 Gradle:
 ```gradle
-compile 'hr.aduro:materialstepper:1.3'
+compile 'hr.aduro:materialstepper:1.3.2'
 ```
 
 Maven:
