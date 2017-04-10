@@ -26,16 +26,6 @@ Gradle:
 compile 'hr.aduro:materialstepper:1.3.2'
 ```
 
-Maven:
-```maven
-<dependency> 
-    <groupId>hr.aduro</groupId> 
-    <artifactId>materialstepper</artifactId> 
-    <version>1.3</version> 
-    <type>pom</type> 
-</dependency>
-```
-
 Or download the repository and copy the `materialstepper` folder to your projects' folder.
 After that add this to your *app-level* `build.gradle`. 
 
